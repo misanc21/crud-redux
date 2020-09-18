@@ -29,6 +29,21 @@
       "nombre": "tequila",
       "precio": 233,
       "id": 6
+    },
+    {
+      "nombre": "sin una funcion",
+      "precio": 23,
+      "id": 7
+    },
+    {
+      "nombre": "wer",
+      "precio": 2,
+      "id": 8
+    },
+    {
+      "nombre": "2w2",
+      "precio": 3,
+      "id": 9
     }
   ]
 }
