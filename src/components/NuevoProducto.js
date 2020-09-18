@@ -3,13 +3,27 @@ import { useDispatch, useSelector } from 'react-redux'
 
 //actions de redux
 import { crearNuevoProductoAction } from '../actions/productoActions'
+import { 
+    mostrarAlertaAction,
+    ocultarAlertaAction
+} from '../actions/alertaActions'
 
 const NuevoProducto = ({history}) => {
+    //utiliza el use dispatch para crear el dispatch
+    const dispatch = useDispatch()
+
+    //acceder al state del store
+    const cargando = useSelector(state => state.productos.loading)
+    const error = useSelector(state=> state.productos.error)
+    const alerta = useSelector(state => state.alerta.alerta)
+
+
     const [datos, setDatos] = useState({
         nombre:'',
         precio: 0
     })
     const {nombre, precio} = datos
+
 
     const handleChange = e =>{
         const valor = e.target.name === 'precio'? e.target.value = Number(e.target.value): e.target.value
@@ -19,20 +33,19 @@ const NuevoProducto = ({history}) => {
         })
     }
 
-    //utiliza el use dispatch para crear el dispatch
-    const dispatch = useDispatch()
-
-    //acceder al state del store
-    const cargando = useSelector(state => state.productos.loading)
-    const error = useSelector(state=> state.productos.error)
-
     const handlesubmit = e => {
         e.preventDefault()
 
         if(nombre.trim() === '' || precio <= 0){
+            console.log('entro')
+            const alerta = {
+                msg: 'Ambos campos son obligatorios',
+                classes: 'alert alert-danger text-center text-uppercase p3 mt-3'
+            }
+            dispatch(mostrarAlertaAction(alerta))
             return
         }
-
+        dispatch(ocultarAlertaAction)
         dispatch(crearNuevoProductoAction(datos))
         history.push('/')
     }
@@ -77,6 +90,7 @@ const NuevoProducto = ({history}) => {
                             </button>
                         </form>
                         {cargando ? <p>cargando...</p>: null}
+                        {alerta? <p className={alerta.classes}>{alerta.msg}</p>: null}
                         {error? <p className="alert alert-danger p2 mt-2 text-center">Hubo un error</p> : null}
                     </div>
                 </div>

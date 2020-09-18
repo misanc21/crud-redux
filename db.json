@@ -1,8 +1,8 @@
 {
   "productos": [
     {
-      "nombre": "Rib Eye 800grrr",
-      "precio": 2003,
+      "nombre": "Rib Eye 8",
+      "precio": 344,
       "id": 4
     },
     {
@@ -29,6 +29,36 @@
       "nombre": "2w2",
       "precio": 3,
       "id": 9
+    },
+    {
+      "nombre": "tequila",
+      "precio": 23,
+      "id": 10
+    },
+    {
+      "nombre": "123",
+      "precio": 222,
+      "id": 11
+    },
+    {
+      "nombre": "Misael",
+      "precio": 44,
+      "id": 12
+    },
+    {
+      "nombre": "tequila",
+      "precio": 33,
+      "id": 13
+    },
+    {
+      "nombre": "qwererewrwrggfd",
+      "precio": 23432,
+      "id": 14
+    },
+    {
+      "nombre": "gtgtgtg",
+      "precio": 5,
+      "id": 15
     }
   ]
 }

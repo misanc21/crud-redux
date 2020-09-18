@@ -36,7 +36,7 @@ const Productos = () => {
                         <tr><td>No hay productos</td></tr>
                         : 
                         productos.map( p => {
-                            return <Producto key={p.id} producto={p}/>
+                            return <Producto key={`i-${p.id}`} producto={p}/>
                         })
                     }
                 </tbody>

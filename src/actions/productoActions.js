@@ -127,8 +127,18 @@ export function editaProductoAction(producto){
         try {
             await clienteAxios.put(`/productos/${producto.id}`, producto)
             dispatch(editProductoExito(producto))
+            Swal.fire(
+                'correcto',
+                'el producto se guardó correctamente',
+                'success'
+            )
         } catch (error) {
             dispatch(editProductoError())
+            Swal.fire({
+                icon:'error',
+                title:'Hubo un error',
+                text:'intenta de nuevo'
+            })
         }
     }
 }

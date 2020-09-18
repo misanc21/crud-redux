@@ -5,9 +5,15 @@ import {
     editaProductoAction
 }from '../actions/productoActions'
 
+import { 
+    mostrarAlertaAction,
+    ocultarAlertaAction
+} from '../actions/alertaActions'
+
 const EditarProducto = () => {
     const history = useHistory()
     const productoEditar = useSelector(state=> state.productos.productoEditar)
+    const alerta = useSelector(state => state.alerta.alerta)
     const dispatch = useDispatch()
     
     
@@ -32,8 +38,14 @@ const EditarProducto = () => {
     const handleSubmit = e =>{
         e.preventDefault()
         if(nombre.trim() === '' || precio <= 0){
+            const alerta = {
+                msg: 'Ambos campos son obligatorios',
+                classes: 'alert alert-danger text-center text-uppercase p3 mt-3'
+            }
+            dispatch(mostrarAlertaAction(alerta))
             return
         }
+        dispatch(ocultarAlertaAction())
         dispatch(editaProductoAction(producto))
         history.push('/')
     }
@@ -78,6 +90,7 @@ const EditarProducto = () => {
                                 Guardar Cambios
                             </button>
                         </form>
+                        {alerta? <p className={alerta.classes}>{alerta.msg}</p>: null}
                     </div>
                 </div>
             </div>
