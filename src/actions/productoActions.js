@@ -4,12 +4,14 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
     DESCARGA_PRODUCTOS_EXITO,
-    DESCARGA_PRODUCTOS_ERROR
+    DESCARGA_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR
 } from '../types'
 
 import clienteAxios from '../config/axios'
 import Swal from 'sweetalert2'
-import Productos from '../components/Productos'
 
 //crear nuevos productos
 export function crearNuevoProductoAction (producto) {
@@ -78,5 +80,33 @@ const descargaProductosExito = (productos) =>({
 
 const descargaProductosError = (estado) =>({
     type: DESCARGA_PRODUCTOS_ERROR,
+    payload: estado
+})
+
+// eliminacion de productos
+
+export function deleteProductoAction(id) {
+    return async dispatch => {
+        dispatch(startDeleteProducto(id))
+        try {
+            const res = await clienteAxios.delete(`/productos/${id}`)
+            dispatch(deleteProductoExito())
+        } catch (error) {
+            deleteProductoError(true)
+        }
+    }
+}
+
+const startDeleteProducto = id =>({
+    type: OBTENER_PRODUCTO_ELIMINAR,
+    payload: id
+})
+
+const deleteProductoExito = () => ({
+    type: PRODUCTO_ELIMINADO_EXITO
+})
+
+const deleteProductoError = estado =>({
+    type:PRODUCTO_ELIMINADO_ERROR,
     payload: estado
 })
