@@ -16,6 +16,7 @@ const Productos = () => {
 
     useEffect(() => {
         dispatch(getProductosAction())
+        // eslint-disable-next-line
     }, [])
     return ( 
         <Fragment>

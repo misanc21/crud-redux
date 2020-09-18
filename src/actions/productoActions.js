@@ -7,7 +7,10 @@ import {
     DESCARGA_PRODUCTOS_ERROR,
     OBTENER_PRODUCTO_ELIMINAR,
     PRODUCTO_ELIMINADO_EXITO,
-    PRODUCTO_ELIMINADO_ERROR
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 } from '../types'
 
 import clienteAxios from '../config/axios'
@@ -89,7 +92,7 @@ export function deleteProductoAction(id) {
     return async dispatch => {
         dispatch(startDeleteProducto(id))
         try {
-            const res = await clienteAxios.delete(`/productos/${id}`)
+            await clienteAxios.delete(`/productos/${id}`)
             dispatch(deleteProductoExito())
         } catch (error) {
             deleteProductoError(true)
@@ -109,4 +112,37 @@ const deleteProductoExito = () => ({
 const deleteProductoError = estado =>({
     type:PRODUCTO_ELIMINADO_ERROR,
     payload: estado
+})
+
+//COLOCAR PRODUCTO EN EDICION
+
+export function getProductoEditarAction(producto) {
+    return dispatch => {
+        dispatch(getProductoAction(producto))
+    }
+}
+
+export function editaProductoAction(producto){
+    return async dispatch => {
+        try {
+            await clienteAxios.put(`/productos/${producto.id}`, producto)
+            dispatch(editProductoExito(producto))
+        } catch (error) {
+            dispatch(editProductoError())
+        }
+    }
+}
+
+const getProductoAction= producto =>({
+    type:OBTENER_PRODUCTO_EDITAR,
+    payload: producto
+})
+
+const editProductoExito = producto => ({
+    type: PRODUCTO_EDITADO_EXITO,
+    payload: producto
+})
+
+const editProductoError = () => ({
+    type: PRODUCTO_EDITADO_ERROR
 })

@@ -1,15 +1,17 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 import { useDispatch } from 'react-redux'
 import {
-    deleteProductoAction
+    deleteProductoAction,
+    getProductoEditarAction
 } from '../actions/productoActions'
 
 
 const Producto = ({producto}) => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleClick = () =>{
         Swal.fire({
@@ -34,12 +36,24 @@ const Producto = ({producto}) => {
     }
 
     const {nombre, precio, id} = producto
+
+    // funcion que ridirige
+    const redireccionarEdicion = () => {
+        dispatch(getProductoEditarAction(producto))
+        history.push(`/productos/editar/${id}`)
+    }
+
     return (
         <tr>
             <td>{nombre}</td>
             <td><span className="font-weight-bold">$ {precio}</span></td>
             <td className="acciones">
-                <Link to={`/productos/editar/${id}`} className="btn btn-primary mr-2">Editar</Link>
+                <button
+                    className="btn btn-primary mr-2"
+                    onClick={redireccionarEdicion}
+                >
+                    Editar
+                </button>
                 <button className="btn btn-danger" type="button" onClick={handleClick}>Eliminar</button>
             </td>
         </tr>
